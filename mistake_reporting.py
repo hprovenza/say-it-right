@@ -11,3 +11,6 @@ def final_devoicing():
 
 def h_deletion():
     print("Don't forget to pronounce the H!")
+
+def vowel_shift():
+    print("Looks like you've made a vowel shifting error.  Try listening to the recording again.")

@@ -17,6 +17,8 @@ with open('/Users/hannahprovenza/Development/say-it-right/transcriptions/MASTER.
 d = difflib.Differ()
 diff = d.compare(correct, transcript)
 
+
+#TODO: error dictionaries should map incorrect to correct phonemes
 devoice = {'b': 'p',
            'd':'t',
            'g': 'k',
@@ -33,13 +35,15 @@ dh_changes = {'z': 'D',
               'v': 'D'}
 
 #This hasn't been finished yet
-replace = {'@': 'a',
+vowel_shifts = {'@': 'a',
            'I': 'i',
            '3`': '3',
            'oU':'o'}
+vowel_shifts = {v: k for k, v in vowel_shifts.items()}
 
 
 #TODO: identify the differences
+print('\n'.join(diff))
 i = 0
 for i in range(len(correct)):
     #where i loops through the sentences
@@ -49,7 +53,6 @@ for i in range(len(correct)):
     for o in s.get_grouped_opcodes():
         for code in o:
             if code[0] == 'replace':
-                print(code)
                 if transcript[i][code[1]] in th_changes:
                     if (th_changes[transcript[i][code[1]:code[2]]] == correct[i][code[3]:code[4]]):
                         print("unvoiced th articulation error! at char {}".format(code[3]))
@@ -62,14 +65,10 @@ for i in range(len(correct)):
                     if (devoice[transcript[i][code[1]:code[2]]] == correct[i][code[3]:code[4]]):
                         print("devoicing error! at char {}".format(code[3]))
                         mistake_reporting.final_devoicing()
-
-
-
-
-#TODO: return the errors
-
-
-#TODO: print results
-for x in diff:
-    #print(x)
-    pass
+                if transcript[i][code[1]] in vowel_shifts:
+                    if (vowel_shifts[transcript[i][code[1]:code[2]]] == correct[i][code[3]:code[4]]):
+                        print("vowel shift error! at char {}".format(code[3]))
+                        mistake_reporting.vowel_shift()
+            if code[0] == 'delete':
+                if correct[i][code[3]] == 'h':
+                    mistake_reporting.h_deletion()
