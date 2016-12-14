@@ -27,10 +27,10 @@ devoice = {'b': 'p',
 devoice = {v: k for k, v in devoice.items()}
 
 th_changes = {'s': 'T',
-
               'f': 'T'}
 
-dh_changes = {'z': 'D',}
+dh_changes = {'z': 'D',
+              'v': 'D'}
 
 #This hasn't been finished yet
 replace = {'@': 'a',
