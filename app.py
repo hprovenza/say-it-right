@@ -41,6 +41,23 @@ vowel_shifts = {'@': 'a',
            'oU':'o'}
 vowel_shifts = {v: k for k, v in vowel_shifts.items()}
 
+def track_word(i, c):
+    track = 0
+    word = ''
+    z = True
+    first = True
+    for w in correct[i].split():
+        track += len(w)
+        if not z:
+            track += 1
+        else:
+            z = False
+        if track >= c[4] and first:
+            return word
+            first = False
+        else:
+            word = w
+    return word
 
 #TODO: identify the differences
 print('\n'.join(diff))
@@ -55,20 +72,33 @@ for i in range(len(correct)):
             if code[0] == 'replace':
                 if transcript[i][code[1]] in th_changes:
                     if (th_changes[transcript[i][code[1]:code[2]]] == correct[i][code[3]:code[4]]):
-                        print("unvoiced th articulation error! at char {}".format(code[3]))
+                        word = (track_word(i, code))
+                        print("unvoiced th articulation error! in word {}".format(word))
                         mistake_reporting.th_articulation()
+                        print()
                 if transcript[i][code[1]] in dh_changes:
                     if (dh_changes[transcript[i][code[1]:code[2]]] == correct[i][code[3]:code[4]]):
-                        print("voiced th articulation error! at char {}".format(code[3]))
+                        word = (track_word(i, code))
+                        print("voiced th articulation error! in word {}".format(word))
                         mistake_reporting.dh_articulation()
+                        print()
+
                 if transcript[i][code[1]] in devoice:
                     if (devoice[transcript[i][code[1]:code[2]]] == correct[i][code[3]:code[4]]):
-                        print("devoicing error! at char {}".format(code[3]))
+                        word = (track_word(i, code))
+                        print("devoicing error! in word {}".format(word))
                         mistake_reporting.final_devoicing()
+                        print()
                 if transcript[i][code[1]] in vowel_shifts:
                     if (vowel_shifts[transcript[i][code[1]:code[2]]] == correct[i][code[3]:code[4]]):
-                        print("vowel shift error! at char {}".format(code[3]))
+                        word = (track_word(i, code))
+                        print("vowel shift error! in word {}".format(word))
                         mistake_reporting.vowel_shift()
+                        print()
             if code[0] == 'delete':
                 if correct[i][code[3]] == 'h':
+                    word = (track_word(i, code))
+                    print("h deletion! in word {}".format(word))
                     mistake_reporting.h_deletion()
+                    print()
+
