@@ -1,3 +1,5 @@
+__author__ = "Hannah Provenza"
+
 import urllib
 
 for x in range(1,64):
