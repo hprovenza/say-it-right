@@ -8,7 +8,6 @@
 # echo "<SIL> SIL" >> dict/lexicon.txt
 
 utils/prepare_lang.sh --position-dependent-phones false dict "<SIL>" dict/tmp data/lang
-lm/prepare_lm.sh
 
 #python prep_data.py
 
