@@ -4,11 +4,12 @@ import difflib
 from difflib import SequenceMatcher
 import mistake_reporting
 
-#audio = sys.argv[1]
+text = sys.argv[1]
+print(text)
 
 #TODO: run kaldi script to get the phonetic transcription
 # currently cheating with manual transcription
-with open('/Users/hannahprovenza/Development/say-it-right/transcriptions/dev/french1.txt', 'r') as f:
+with open(text, 'r') as f:
     transcript = f.readlines()
 
 #TODO: align the transcription and master transcription
@@ -52,7 +53,7 @@ def track_word(i, c):
             track += 1
         else:
             z = False
-        if track >= c[4] and first:
+        if track > c[4] and first:
             return word
             first = False
         else:
@@ -61,6 +62,7 @@ def track_word(i, c):
 
 #TODO: identify the differences
 print('\n'.join(diff))
+print()
 i = 0
 for i in range(len(correct)):
     #where i loops through the sentences
@@ -82,7 +84,6 @@ for i in range(len(correct)):
                         print("voiced th articulation error! in word {}".format(word))
                         mistake_reporting.dh_articulation()
                         print()
-
                 if transcript[i][code[1]] in devoice:
                     if (devoice[transcript[i][code[1]:code[2]]] == correct[i][code[3]:code[4]]):
                         word = (track_word(i, code))
