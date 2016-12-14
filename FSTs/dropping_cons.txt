@@ -1,0 +1,8 @@
+0	1	p	eps
+0	1	t	eps
+0	1	d	eps
+0	1	k	eps
+0	1	s	eps
+0	1	z	eps
+1	0	eps	eps
+0

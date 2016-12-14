@@ -1,0 +1,9 @@
+0	1	b	p
+0	1	d	t
+0	1	g	k
+0	1	v	f
+0	1	D	T
+0	1	z	s
+0	1	Z	S
+1	0	eps	eps
+0
