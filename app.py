@@ -1,6 +1,7 @@
 __author__ = "Hannah Provenza"
 import sys
 import difflib
+import mistake_reporting
 
 audio = sys.argv[1]
 
