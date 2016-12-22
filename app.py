@@ -13,7 +13,7 @@ with open(text, 'r') as f:
     transcript = f.readlines()
 
 #TODO: align the transcription and master transcription
-with open('/Users/hannahprovenza/Development/say-it-right/transcriptions/MASTER.txt', 'r') as f:
+with open('/home/anna/say-it-right/transcriptions/MASTER.txt', 'r') as f:
     correct = f.readlines()
 d = difflib.Differ()
 diff = d.compare(correct, transcript)
@@ -42,22 +42,20 @@ vowel_shifts = {'@': 'a',
            'oU':'o'}
 vowel_shifts = {v: k for k, v in vowel_shifts.items()}
 
-def track_word(i, c):
-    track = 0
-    word = ''
-    z = True
-    first = True
-    for w in correct[i].split():
-        track += len(w)
-        if not z:
-            track += 1
+def track_word(i, code):
+    beginning = []
+    end = []
+    for char in reversed(correct[i][:code[3]]):
+        if char != ' ':
+            beginning.append(char)
         else:
-            z = False
-        if track > c[4] and first:
-            return word
-            first = False
+            break
+    for char in correct[i][code[4]:]:
+        if char != ' ':
+            end.append(char)
         else:
-            word = w
+            break
+    word = ''.join(beginning[::-1])+correct[i][code[3]]+''.join(end)
     return word
 
 #TODO: identify the differences
@@ -102,4 +100,3 @@ for i in range(len(correct)):
                     print("h deletion! in word {}".format(word))
                     mistake_reporting.h_deletion()
                     print()
-
