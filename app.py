@@ -50,12 +50,13 @@ def track_word(i, code):
             beginning.append(char)
         else:
             break
-    for char in correct[i][code[4]:]:
+    for char in correct[i][code[3]:]:
         if char != ' ':
             end.append(char)
         else:
             break
-    word = ''.join(beginning[::-1])+correct[i][code[3]]+''.join(end)
+    word = ''.join(beginning[::-1])+''.join(end)
+
     return word
 
 #TODO: identify the differences
